@@ -11,21 +11,27 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
+            overflow: hidden;
         }
         .image, .text {
-            margin-top: 50px;
+            position: absolute;
             display: none;
+        }
+        .image {
+            width: 250px;
         }
     </style>
 </head>
 <body>
-    <img class="image" src="image1.jpg" width="250">
-    <div class="text">Welcome!</div>
+    <img class="image" src="IMG_9541.JPG">
+    <div class="text">Mollie, smart girl...at least to one side of her brain</div>
     
     <script>
         $(document).ready(function() {
             let images = ["IMG_9541.JPG", "IMG_9764.JPG", "f724863a-d45b-4145-afdd-8d51330a5019.jpg"];
-            let texts = ["Mollie, smart girl...at least to one side of her brain", "Ruger, also smart, more than mollie but still a few loveable braincells misisng", "This is Nibbbles, a cat my dad found while hunting. Typical cat distribution at its finest"];
+            let texts = ["Mollie, smart girl...at least to one side of her brain", 
+                         "Ruger, also smart, more than Mollie but still a few lovable braincells missing", 
+                         "This is Nibbles, a cat my dad found while hunting. Typical cat distribution at its finest"];
             let index = 0;
 
             function switchContent() {
@@ -33,6 +39,16 @@
                     index = (index + 1) % images.length;
                     $(".image").attr("src", images[index]);
                     $(".text").text(texts[index]);
+
+                    // Move image and text to a random position
+                    let randomX = Math.random() * ($(window).width() - 250);
+                    let randomY = Math.random() * ($(window).height() - 100);
+
+                    $(".image, .text").css({
+                        left: randomX + "px",
+                        top: randomY + "px"
+                    });
+
                     $(".image, .text").fadeIn(1000);
                 });
             }

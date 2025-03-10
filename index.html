@@ -40,7 +40,7 @@
                          "Ruger, also smart, more than Mollie but still a few lovable braincells missing", 
                          "This is Nibbles, a cat my dad found while hunting. Typical cat distribution at its finest"];
             let colors = ["red", "blue", "green", "yellow", "purple", "orange"];
-            let shapes = ["50%", "0%"]; // Circle or square
+            let shapes = ["50%", "0%"];
             let index = 0;
 
             function getRandomPosition(elementWidth, elementHeight) {
@@ -56,7 +56,7 @@
                     $(".image").attr("src", images[index]);
                     $(".text").text(texts[index]);
 
-                    let newPos = getRandomPosition(650, 100); // Adjusted for new image size
+                    let newPos = getRandomPosition(650, 100);
                     $(".image, .text").css(newPos).fadeIn(1000);
                 });
             }
@@ -65,8 +65,7 @@
                 $(".shape").fadeOut(1000, function() {
                     let newShape = Math.random() > 0.5 ? "50%": "0%";
                     let newColor = colors[Math.floor(Math.random() * colors.length)];
-                    let newPos = getRandomPosition(50, 50); // Shape size remains 50px
-
+                    let newPos = getRandomPosition(50, 50);
                     $(".shape").css({
                         "background-color": newColor,
                         "border-radius": newShape

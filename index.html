@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple jQuery Animation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .image, .text {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img class="image" src="image1.jpg" width="150">
+    <div class="text">Welcome!</div>
+    
+    <script>
+        $(document).ready(function() {
+            let images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+            let texts = ["Welcome!", "Enjoy the show!", "Stay creative!"];
+            let index = 0;
+
+            function switchContent() {
+                $(".image, .text").fadeOut(1000, function() {
+                    index = (index + 1) % images.length;
+                    $(".image").attr("src", images[index]);
+                    $(".text").text(texts[index]);
+                    $(".image, .text").fadeIn(1000);
+                });
+            }
+
+            $(".image, .text").fadeIn(1000);
+            setInterval(switchContent, 3000);
+        });
+    </script>
+</body>
+</html>

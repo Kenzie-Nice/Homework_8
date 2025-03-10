@@ -3,36 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple jQuery Animation</title>
+    <title>jQuery Animation Page</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
-            text-align: center;
             overflow: hidden;
+            position: relative;
         }
-        .image, .text {
+        .image, .text, .shape {
             position: absolute;
             display: none;
         }
         .image {
             width: 650px;
         }
+        .shape {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
     <img class="image" src="IMG_9541.JPG">
     <div class="text">Mollie, smart girl...at least to one side of her brain</div>
-    
+    <div class="shape"></div>
+
     <script>
         $(document).ready(function() {
             let images = ["IMG_9541.JPG", "IMG_9764.JPG", "f724863a-d45b-4145-afdd-8d51330a5019.jpg"];
             let texts = ["Mollie, smart girl...at least to one side of her brain", 
                          "Ruger, also smart, more than Mollie but still a few lovable braincells missing", 
                          "This is Nibbles, a cat my dad found while hunting. Typical cat distribution at its finest"];
+            let colors = ["red", "blue", "green", "yellow", "purple", "orange"];
+            let shapes = ["50%", "0%"]; // Circle or square
             let index = 0;
+
+            function getRandomPosition(elementWidth, elementHeight) {
+                return {
+                    left: Math.random() * ($(window).width() - elementWidth) + "px",
+                    top: Math.random() * ($(window).height() - elementHeight) + "px"
+                };
+            }
 
             function switchContent() {
                 $(".image, .text").fadeOut(1000, function() {
@@ -40,21 +56,27 @@
                     $(".image").attr("src", images[index]);
                     $(".text").text(texts[index]);
 
-                    // Move image and text to a random position
-                    let randomX = Math.random() * ($(window).width() - 250);
-                    let randomY = Math.random() * ($(window).height() - 100);
-
-                    $(".image, .text").css({
-                        left: randomX + "px",
-                        top: randomY + "px"
-                    });
-
-                    $(".image, .text").fadeIn(1000);
+                    let newPos = getRandomPosition(650, 100); // Adjusted for new image size
+                    $(".image, .text").css(newPos).fadeIn(1000);
                 });
             }
 
-            $(".image, .text").fadeIn(1000);
+            function moveShape() {
+                $(".shape").fadeOut(1000, function() {
+                    let newShape = Math.random() > 0.5 ? "50%": "0%";
+                    let newColor = colors[Math.floor(Math.random() * colors.length)];
+                    let newPos = getRandomPosition(50, 50); // Shape size remains 50px
+
+                    $(".shape").css({
+                        "background-color": newColor,
+                        "border-radius": newShape
+                    }).css(newPos).fadeIn(1000);
+                });
+            }
+
+            $(".image, .text, .shape").fadeIn(1000);
             setInterval(switchContent, 3000);
+            setInterval(moveShape, 2500);
         });
     </script>
 </body>
